@@ -1,0 +1,23 @@
+{
+  "name": "g4",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "build:web": "vite build --mode web",
+    "build:android": "vite build --mode android && cd cordova && cordova build android && cd ..",
+    "build:ios": "vite build --mode ios && cd cordova && cordova build ios && && cd .."
+  },
+  "devDependencies": {
+    "@types/three": "^0.166.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "phaser": "^3.80.1",
+    "three": "^0.166.1"
+  }
+}
