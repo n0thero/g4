@@ -1,24 +1,33 @@
 import Player from "./Player.ts";
-import {gp} from "./../InitGame.ts";
+import {g3, gp} from "./../InitGame.ts";
 import GameScene from "../scenes/game/GameScene.ts";
+import WelcomeScene from "../scenes/game/WelcomeScene.ts";
+import CharacterController from "./Controllers/CharacterController.ts";
 
 export default class Game {
 
-    // noinspection TypeScriptFieldCanBeMadeReadonly
     private _players: Array<Player> = [];
 
     scene: GameScene;
 
     constructor() {
+
         this._players = [
             new Player(true)
         ];
 
-        this.scene = new GameScene();
+        this.scene = new WelcomeScene();
+    }
 
-        setTimeout(() => {
-            gp.scene.start('GameScene', {continue: false});
-        }, 3000);
+    controller() {
+        return this.scene.controller;
+    }
+
+    characterController(): CharacterController | null {
+
+        return this.scene.controller instanceof CharacterController
+            ? this.scene.controller
+            : null;
     }
 
     player() {

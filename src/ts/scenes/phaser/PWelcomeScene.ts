@@ -7,7 +7,7 @@ class PWelcomeScene extends Phaser.Scene {
     };
 
     constructor() {
-        super({key: 'WelcomeScene'});
+        super({key: 'PWelcomeScene'});
     }
 
     preload() {
@@ -15,8 +15,36 @@ class PWelcomeScene extends Phaser.Scene {
     }
 
     create() {
-        // this.scene.start('GameScene', {continue: false});
-        // return;
+
+        /*
+        * // todo вернуть клики. копипаста из GPT:
+        *
+function create() {
+    // Пример создания кликабельного элемента
+    const clickableElement = this.add.text(100, 100, 'Click me', { font: '24px Arial', fill: '#ffffff' })
+        .setInteractive()
+        .on('pointerdown', () => {
+            console.log('Clicked on Phaser element');
+            // Ваши действия при клике на элемент
+        });
+
+    // Обработчик события 'pointerdown' для canvas
+    this.input.on('pointerdown', function (pointer) {
+        const elements = this.input.hitTestPointer(pointer);
+        if (elements.length === 0) {
+            // Если ни один элемент не был нажат, пропускаем событие на canvas Three.js
+            document.getElementById('threeCanvas').dispatchEvent(new MouseEvent('click', {
+                clientX: pointer.clientX,
+                clientY: pointer.clientY
+            }));
+        }
+    }, this);
+}
+
+function update() {
+    // your update code
+}
+        * */
 
         this.add.image(400, 200, this.images_codes.logo);
 

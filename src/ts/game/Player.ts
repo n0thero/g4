@@ -1,16 +1,21 @@
-import * as THREE from 'three';
-import {g3} from "./../InitGame.ts";
+import * as t3 from 'three';
+import {g3, game} from "./../InitGame.ts";
+import Character from "./Character.ts";
 
 export default class Player {
 
-    private mesh: THREE.Mesh;
+    mesh: t3.Mesh;
+    character: Character;
 
     constructor(is_default: boolean = false) {
 
-        if (is_default) {
-            this.mesh = g3.player();
-        } else {
-            this.mesh = g3.createNewPlayerMesh();
-        }
+        if (is_default) {}
+
+        this.mesh = g3.createNewPlayerMesh();
+        this.character = new Character(this.mesh);
+    }
+
+    spawn(scene: t3.Scene) {
+        scene.add(this.mesh);
     }
 }

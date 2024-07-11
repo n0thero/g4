@@ -25,9 +25,10 @@ export default function InitGame(): void {
         }
     }
 
-    if (!gp) {
+    if (!game) {
         g3 = new G3();
         gp = new Phaser.Game(config);
+
         game = new Game();
     }
 }
