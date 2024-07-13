@@ -4,6 +4,7 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import {FBXLoader} from "three/addons";
 import {game} from "../InitGame.ts";
 import Camera from "../game/Camera.ts";
+import StatsT3 from "stats.js";
 
 export default class G3 {
 
@@ -18,6 +19,7 @@ export default class G3 {
     private controls: any;
     private isControlsInitialized: boolean = false;
     private _axesHelper: t3.AxesHelper;
+    private stats: any;
 
     constructor() {
         this._renderer = new t3.WebGLRenderer({antialias: true});
@@ -30,6 +32,10 @@ export default class G3 {
         this.clock = new t3.Clock();
 
         this._axesHelper = new t3.AxesHelper(1);
+
+        this.stats = new StatsT3();
+        this.stats.dom.id = 'stats-t3';
+        document.body.appendChild(this.stats.dom);
     }
 
     addOrbitControls(camera: t3.PerspectiveCamera) {
@@ -84,6 +90,7 @@ export default class G3 {
 
         game.player().mesh.rotation.y += 0.01;
         this.camera!.updatePositionByCharacter();
+        game.scene._sky.updatePositionByCharacter();
 
         if (this.isControlsInitialized) {
             this.controls.update();
@@ -93,11 +100,15 @@ export default class G3 {
             this.moveAxesHelper();
         }
 
+        this.stats.begin();
+
         if (this.scene && this.t3camera) {
 
             this._renderer.render(
                 this.scene,
                 this.t3camera);
         }
+
+        this.stats.end();
     }
 }

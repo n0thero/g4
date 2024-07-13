@@ -34,3 +34,12 @@ body {
 #app canvas:nth-child(2) {
   pointer-events: none;
 }
+
+#stats-t3 {
+  top: 5px !important;
+  right: 5px !important;
+  left: auto !important;
+  bottom: auto !important;
+  filter: grayscale(1);
+  opacity: 0.6 !important;
+}

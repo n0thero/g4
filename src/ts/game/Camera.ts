@@ -34,12 +34,5 @@ export default class Camera {
         const offset = new t3.Vector3(0, 100, 250);
         this.camera.position.copy(this._character!.position).add(offset);
         this.camera.lookAt(this._character!.position);
-
-        setInterval(() => {
-            game.watchInDebug('x', Math.floor(this._character!.position.x));
-            game.watchInDebug('y', Math.floor(this._character!.position.y));
-            game.watchInDebug('z', Math.floor(this._character!.position.z));
-        }, 10);
-
     }
 }

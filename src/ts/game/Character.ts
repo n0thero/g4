@@ -20,6 +20,9 @@ export default class Character {
         setInterval(() => {
             game.watchInDebug('speed', this.speed.toFixed(1));
             game.watchInDebug('acceleration', this.acceleration.toFixed(1));
+            game.watchInDebug('x', Math.floor(this.mesh.position.x));
+            game.watchInDebug('y', Math.floor(this.mesh.position.y));
+            game.watchInDebug('z', Math.floor(this.mesh.position.z));
         }, 1);
     }
 
