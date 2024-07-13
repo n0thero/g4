@@ -21,15 +21,13 @@ export default class GameScene extends _AbstractGameScene {
 
     init3d() {
         super.init3d();
-
-        this.camera().position.x = 0;
-        this.camera().position.y = 100;
-        this.camera().position.z = 250;
-
-        g3.addOrbitControls(this.camera());
+        this._camera.startFollowCharacter(game.player().character);
 
         g3.scene = this._scene;
-        g3.camera = this.camera();
+        g3.t3camera = this.camera();
+        g3.camera = this._camera;
+
+        g3.addAxesGizmo();
 
         g3.animate();
     }

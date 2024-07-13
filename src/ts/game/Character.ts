@@ -1,19 +1,26 @@
 import * as t3 from "three";
+import {game} from "../InitGame.ts";
 
 export default class Character {
 
-    private mesh: t3.Mesh;
+    mesh: t3.Mesh;
     speed: number = 0;
-    maxSpeed: number = 2;
+    maxSpeed: number = 3;
     acceleration: number = 0;
     accelerationStep: number = .1;
     maxAcceleration: number = .5;
+
     private isJumping: boolean = false;
     private isJumpingUp: boolean = false;
     private jumpingInterval: number | null = null;
 
     constructor(mesh: t3.Mesh) {
         this.mesh = mesh;
+
+        setInterval(() => {
+            game.watchInDebug('speed', this.speed.toFixed(1));
+            game.watchInDebug('acceleration', this.acceleration.toFixed(1));
+        }, 1);
     }
 
     moveForward() {

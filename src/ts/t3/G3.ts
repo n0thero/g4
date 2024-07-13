@@ -3,20 +3,21 @@ import * as t3 from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import {FBXLoader} from "three/addons";
 import {game} from "../InitGame.ts";
+import Camera from "../game/Camera.ts";
 
 export default class G3 {
 
+    public t3camera: t3.PerspectiveCamera | null = null;
+    public camera: Camera | null = null;
+    public scene: t3.Scene | null = null;
+    public textureLoader: t3.TextureLoader;
+    public fbxLoader: any;
+
     private readonly _renderer: t3.WebGLRenderer;
-    textureLoader: t3.TextureLoader;
-
-    fbxLoader: any;
-    clock: t3.Clock;
-
+    private clock: t3.Clock;
     private controls: any;
-    private is_controls_initialized: boolean = false;
-
-    camera: t3.PerspectiveCamera | null = null;
-    scene: t3.Scene | null = null;
+    private isControlsInitialized: boolean = false;
+    private _axesHelper: t3.AxesHelper;
 
     constructor() {
         this._renderer = new t3.WebGLRenderer({antialias: true});
@@ -28,12 +29,12 @@ export default class G3 {
         this.fbxLoader = new FBXLoader();
         this.clock = new t3.Clock();
 
-        // this.animate();
+        this._axesHelper = new t3.AxesHelper(1);
     }
 
     addOrbitControls(camera: t3.PerspectiveCamera) {
         this.controls = new OrbitControls(camera, this._renderer.domElement);
-        this.is_controls_initialized = true;
+        this.isControlsInitialized = true;
     }
 
     createNewPlayerMesh() {
@@ -59,8 +60,22 @@ export default class G3 {
 
     stop() {
         this.scene = null;
+        this.t3camera = null;
         this.camera = null;
-        this.is_controls_initialized = false;
+        this.isControlsInitialized = false;
+    }
+
+    addAxesGizmo() {
+        this.scene!.add(this._axesHelper);
+    }
+
+    moveAxesHelper() {
+        const gizmoDistance = 20;
+        const direction = new t3.Vector3();
+        this.t3camera!.getWorldDirection(direction);
+        this._axesHelper.position
+            .copy(this.t3camera!.position)
+            .add(direction.multiplyScalar(gizmoDistance));
     }
 
     animate = () => {
@@ -68,16 +83,21 @@ export default class G3 {
         requestAnimationFrame(this.animate);
 
         game.player().mesh.rotation.y += 0.01;
+        this.camera!.updatePositionByCharacter();
 
-        if (this.is_controls_initialized) {
+        if (this.isControlsInitialized) {
             this.controls.update();
         }
 
-        if (this.scene && this.camera) {
+        if (this._axesHelper) {
+            this.moveAxesHelper();
+        }
+
+        if (this.scene && this.t3camera) {
 
             this._renderer.render(
                 this.scene,
-                this.camera);
+                this.t3camera);
         }
     }
 }

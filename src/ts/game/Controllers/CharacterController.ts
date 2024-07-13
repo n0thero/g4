@@ -22,7 +22,7 @@ export default class CharacterController extends Controller {
 
         setInterval(() => {
             this.checkThisIsMoving();
-        }, 100);
+        }, 20);
     }
 
     isMovementKeyPressed(): boolean {
@@ -46,6 +46,7 @@ export default class CharacterController extends Controller {
         if (this.interval_s) {
             this.S_pressed = false;
             clearInterval(this.interval_s);
+            this.interval_s = null;
         }
     }
 
@@ -63,6 +64,7 @@ export default class CharacterController extends Controller {
         if (this.interval_w) {
             this.W_pressed = false;
             clearInterval(this.interval_w);
+            this.interval_w = null;
         }
     }
 
@@ -80,6 +82,7 @@ export default class CharacterController extends Controller {
         if (this.interval_d) {
             this.D_pressed = false;
             clearInterval(this.interval_d);
+            this.interval_d = null;
         }
     }
 
@@ -97,6 +100,7 @@ export default class CharacterController extends Controller {
         if (this.interval_a) {
             this.A_pressed = false;
             clearInterval(this.interval_a);
+            this.interval_a = null;
         }
     }
 
@@ -129,6 +133,28 @@ export default class CharacterController extends Controller {
             }
 
             this.target.stopMoving();
+
+        } else {
+
+            if (!this.W_pressed) {
+                clearInterval(this.interval_w!);
+                this.interval_w = null;
+            }
+
+            if (!this.A_pressed) {
+                clearInterval(this.interval_a!);
+                this.interval_a = null;
+            }
+
+            if (!this.S_pressed) {
+                clearInterval(this.interval_s!);
+                this.interval_s = null;
+            }
+
+            if (!this.D_pressed) {
+                clearInterval(this.interval_d!);
+                this.interval_d= null;
+            }
         }
     }
 }
