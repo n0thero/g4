@@ -11,15 +11,15 @@ export default class SceneLights {
 
     constructor() {
 
-        this.ambient = new t3.AmbientLight(this.light_ambient_color_default, 1);
+        this.ambient = new t3.AmbientLight(this.light_ambient_color_default, 2);
 
         this.directional = new t3.DirectionalLight(
             this.light_directional_color_default,
-            1);
+        3);
 
         this.other = [];
 
-        this.directional.position.set(0, 150, 20);
+        this.directional.position.set(0, 150, -70);
         this.directional.castShadow = true;
 
         this.directional.shadow.mapSize.width = 2048;
