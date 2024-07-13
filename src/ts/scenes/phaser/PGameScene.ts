@@ -35,7 +35,7 @@ class PGameScene extends Phaser.Scene {
         this.keyA = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        
+
         this.keySpace = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         this.input.keyboard!.on('keydown-W',
@@ -89,7 +89,7 @@ class PGameScene extends Phaser.Scene {
                 5,
                 '',
                 {
-                    fontSize: '14px',
+                    fontSize: '12px',
                     fontFamily: 'monospace',
                     padding: {
                         x: 4,

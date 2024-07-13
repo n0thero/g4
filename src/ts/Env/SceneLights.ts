@@ -6,31 +6,32 @@ export default class SceneLights {
     directional: t3.DirectionalLight;
     other: t3.Light[];
 
-    private light_ambient_color_default: t3.ColorRepresentation = 0x404040;
-    private light_directional_color_default: t3.ColorRepresentation = 0xfff;
-    private light_directional_intensity_default: number = 1;
+    private light_ambient_color_default: t3.ColorRepresentation = 0xffffff;
+    private light_directional_color_default: t3.ColorRepresentation = 0xffffff;
 
     constructor() {
 
-        this.ambient = new t3.AmbientLight(this.light_ambient_color_default);
+        this.ambient = new t3.AmbientLight(this.light_ambient_color_default, 1);
 
         this.directional = new t3.DirectionalLight(
             this.light_directional_color_default,
-            this.light_directional_intensity_default);
+            1);
 
         this.other = [];
 
-        this.directional.position.set(50, 50, 100);
+        this.directional.position.set(0, 150, 20);
         this.directional.castShadow = true;
 
-        this.directional.shadow.mapSize.width = 1024;
-        this.directional.shadow.mapSize.height = 1024;
+        this.directional.shadow.mapSize.width = 2048;
+        this.directional.shadow.mapSize.height = 2048;
+
         this.directional.shadow.camera.near = 0.5;
-        this.directional.shadow.camera.far = 500;
-        this.directional.shadow.camera.left = -50;
-        this.directional.shadow.camera.right = 50;
-        this.directional.shadow.camera.top = 50;
-        this.directional.shadow.camera.bottom = -50;
+        this.directional.shadow.camera.far = 150000;
+
+        this.directional.shadow.camera.left = -500;
+        this.directional.shadow.camera.right = 500;
+        this.directional.shadow.camera.top = 500;
+        this.directional.shadow.camera.bottom = -500;
     }
 
     init(scene: t3.Scene) {

@@ -11,7 +11,7 @@ export default class Sky {
             '/src/assets/textures/env/skybox.webp');
 
         this.mesh = new t3.Mesh(
-            new t3.SphereGeometry(1000, 32, 32),
+            new t3.SphereGeometry(10000, 32, 32),
             new t3.MeshBasicMaterial({map: txrSky, side: t3.BackSide})
         );
     }

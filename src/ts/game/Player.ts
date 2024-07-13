@@ -1,6 +1,6 @@
 import * as t3 from 'three';
-import {g3, game} from "./../InitGame.ts";
 import Character from "./Character.ts";
+import {g3} from "../InitGame.ts";
 
 export default class Player {
 
@@ -9,9 +9,12 @@ export default class Player {
 
     constructor(is_default: boolean = false) {
 
-        if (is_default) {}
+        if (is_default) {
+        }
 
-        this.mesh = g3.createNewPlayerMesh();
+        // @ts-ignore
+        this.mesh = g3.bot;
+        this.mesh.castShadow = true;
         this.character = new Character(this.mesh);
     }
 

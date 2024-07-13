@@ -31,7 +31,7 @@ export default class Camera {
             return;
         }
 
-        const offset = new t3.Vector3(0, 100, 250);
+        const offset = new t3.Vector3(0, 150, 250);
         this.camera.position.copy(this._character!.position).add(offset);
         this.camera.lookAt(this._character!.position);
     }

@@ -12,10 +12,27 @@ export default class Ground {
             new t3.PlaneGeometry(this.size_default, this.size_default),
             new t3.MeshBasicMaterial({color: this.color_default})
         );
-        this.mesh.rotation.x = -Math.PI / 2;
+
+        this.makeDefaultRotation();
+        this.mesh.receiveShadow = true;
     }
 
-    init(scene: t3.Scene) {
+    setMesh(mesh: t3.Mesh) {
+        this.mesh = mesh;
+        this.makeDefaultRotation();
+        this.mesh.receiveShadow = true;
+    }
+
+    private makeDefaultRotation(){
+        this.mesh.rotation.x = -Math.PI / 2;
+        this.mesh.rotation.z = 35;
+    }
+
+    removeFromScene(scene: t3.Scene) {
+        scene.remove(this.mesh);
+    }
+
+    addToScene(scene: t3.Scene) {
         scene.add(this.mesh);
     }
 }

@@ -6,22 +6,25 @@ import CharacterController from "./Controllers/CharacterController.ts";
 
 export default class Game {
 
+    // @ts-ignore
+    public scene: GameScene;
+
     private _players: Array<Player> = [];
-
-    scene: GameScene;
-
-    private pg: Phaser.Game | null = null;
     private debugStack: { [key: string]: any } = {};
 
     constructor() {
 
-        this._players = [
-            new Player(true)
-        ];
+        g3.loadResources().then(() => {
 
-        this.scene = new WelcomeScene();
+            this._players = [
+                new Player(true)
+            ];
 
-        this.showDebug();
+            // @ts-ignore
+            this.scene = new WelcomeScene();
+
+            this.showDebug();
+        });
     }
 
     controller() {

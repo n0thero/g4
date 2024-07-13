@@ -33,7 +33,7 @@ export abstract class _AbstractGameScene {
     init3d() {
         g3.stop();
 
-        this._ground.init(this._scene);
+        this._ground.addToScene(this._scene);
         this._lights.init(this._scene);
         this._sky.init(this._scene);
         this._camera.init(this._scene);
