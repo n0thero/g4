@@ -1,5 +1,5 @@
 import * as t3 from "three";
-import {game} from "../InitGame.ts";
+import {g3, game} from "../InitGame.ts";
 
 export default class Character {
 
@@ -15,6 +15,10 @@ export default class Character {
     private jumpingInterval: number | null = null;
 
     constructor(mesh: t3.Mesh) {
+
+        this.maxSpeed *= 10;
+        this.maxAcceleration *= 10;
+
         this.mesh = mesh;
 
         setInterval(() => {

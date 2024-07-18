@@ -22,13 +22,35 @@ export default class GameScene extends _AbstractGameScene {
 
     init3d() {
         super.init3d();
-        this.initCoolGround();
-        this._camera.startFollowCharacter(game.player().character);
+        // this.initCoolGround();
 
         g3.scene = this._scene;
         g3.t3camera = this.camera();
         g3.camera = this._camera;
 
+        this._ground.mesh.visible = false;
+        this._lights.ambient.visible = false;
+        this._lights.directional.visible = false;
+
+        g3.gltfLoader.load('/src/assets/scenes/export-test.glb', (gltf: any) => {
+
+            let scene = gltf.scene;
+            scene.scale.set(50, 50, 50);
+            scene.position.y += 100;
+            scene.traverse((node: any) => {
+                if (node.isLight) {
+                    node.intensity *= 0.002;
+                    node.castShadow = true;
+                } else {
+                    node.receiveShadow = true;
+                }
+            });
+
+            g3.scene!.add(scene);
+        });
+
+        this._camera.startFollowCharacter(game.player().character);
+        // g3.addOrbitControls(g3.t3camera);
         // g3.addAxesGizmo();
 
         g3.animate();

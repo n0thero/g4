@@ -37,7 +37,6 @@ export abstract class _AbstractGameScene {
         this._lights.init(this._scene);
         this._sky.init(this._scene);
         this._camera.init(this._scene);
-
         this._lights.directional.target = this._ground.mesh;
 
         this.player().spawn(this._scene);

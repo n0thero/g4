@@ -1,6 +1,8 @@
 import * as t3 from 'three';
 // @ts-ignore
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
+// @ts-ignore
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
 import {FBXLoader} from "three/addons";
 import {game} from "../InitGame.ts";
 import Camera from "../game/Camera.ts";
@@ -13,6 +15,7 @@ export default class G3 {
     public scene: t3.Scene | null = null;
     public textureLoader: t3.TextureLoader;
     public fbxLoader: any;
+    public gltfLoader: any;
 
     public _renderer: t3.WebGLRenderer;
     private clock: t3.Clock;
@@ -37,6 +40,7 @@ export default class G3 {
 
         this.textureLoader = new t3.TextureLoader();
         this.fbxLoader = new FBXLoader();
+        this.gltfLoader = new GLTFLoader();
         this.clock = new t3.Clock();
 
         this._axesHelper = new t3.AxesHelper(1);
@@ -113,8 +117,8 @@ export default class G3 {
         this._axesHelper.position.y += 4;
     }
 
-    degToRadians(degrees: number): number {
-        return degrees * (Math.PI / 180);
+    degToRad(degrees: number): number {
+        return t3.MathUtils.degToRad(degrees);
     }
 
     animate = () => {
@@ -122,7 +126,7 @@ export default class G3 {
         requestAnimationFrame(this.animate);
 
         // game.player().mesh.rotation.y += 0.01;
-        game.player().mesh.rotation.y = this.degToRadians(180);
+        game.player().mesh.rotation.y = this.degToRad(180);
 
         this.camera!.updatePositionByCharacter();
         game.scene._sky.updatePositionByCharacter();

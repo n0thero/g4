@@ -1,6 +1,6 @@
 import * as t3 from "three";
 import Character from "./Character.ts";
-import {game} from "../InitGame.ts";
+import {g3, game} from "../InitGame.ts";
 
 export default class Camera {
 
@@ -9,7 +9,7 @@ export default class Camera {
 
     constructor() {
         this.camera = new t3.PerspectiveCamera(
-            90,
+            110,
             window.innerWidth / window.innerHeight,
             0.1,
             100000
@@ -31,8 +31,9 @@ export default class Camera {
             return;
         }
 
-        const offset = new t3.Vector3(0, 150, 250);
+        const offset = new t3.Vector3(0, 150, 150);
         this.camera.position.copy(this._character!.position).add(offset);
         this.camera.lookAt(this._character!.position);
+        this.camera.rotation.x += g3.degToRad(35);
     }
 }
