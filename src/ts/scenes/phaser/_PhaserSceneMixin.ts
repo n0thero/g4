@@ -56,7 +56,7 @@ export default MyScene;
 
 * */
 
-export default class PhaserSceneMixin extends Phaser.Scene {
+export default class _PhaserSceneMixin extends Phaser.Scene {
 
     private debugTextLogger: Phaser.GameObjects.Text | null = null;
 

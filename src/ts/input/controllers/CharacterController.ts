@@ -1,7 +1,7 @@
-import Controller from "./Controller.ts";
-import Character from "../Character.ts";
+import Character from "../../visual/characters/Character.ts";
+import {AController} from "./AController.ts";
 
-export default class CharacterController extends Controller {
+export default class CharacterController extends AController {
 
     private target: Character;
 

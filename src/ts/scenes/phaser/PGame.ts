@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import {g3, game} from "./../../InitGame.ts";
-import PhaserSceneMixin from "../../_unsorted/PhaserSceneMixin.ts";
+// import PhaserSceneMixin from "../../_unsorted/PhaserSceneMixin.ts";
 
-class PGameScene extends Phaser.Scene {
+class PGame extends Phaser.Scene {
 
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys | null = null;
     private keyW: Phaser.Input.Keyboard.Key | null = null;
@@ -13,7 +13,7 @@ class PGameScene extends Phaser.Scene {
     private debugTextLogger: Phaser.GameObjects.Text | null = null;
 
     constructor() {
-        super({key: 'PGameScene'});
+        super({key: 'PGame'});
     }
 
     init(data: { continue: boolean }) {
@@ -112,4 +112,4 @@ class PGameScene extends Phaser.Scene {
     }
 }
 
-export default PGameScene;
+export default PGame;

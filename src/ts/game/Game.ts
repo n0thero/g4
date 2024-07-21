@@ -1,30 +1,37 @@
+import {g3, game, gp} from "./../InitGame.ts";
+
 import Player from "./Player.ts";
-import {g3, gp} from "./../InitGame.ts";
-import GameScene from "../scenes/game/GameScene.ts";
-import WelcomeScene from "../scenes/game/WelcomeScene.ts";
-import CharacterController from "./Controllers/CharacterController.ts";
+import GameScene from "../scenes/GameScene.ts";
+import LoadingScene from "../scenes/LoadingScene.ts";
+
+import CharacterController from "../input/controllers/CharacterController.ts";
+import {AScene} from "../scenes/AScene.ts";
+import Camera from "./cameras/Camera.ts";
 
 export default class Game {
 
-    // @ts-ignore
-    public scene: GameScene;
+    scene: AScene;
+    camera: Camera;
 
     private _players: Array<Player> = [];
     private debugStack: { [key: string]: any } = {};
 
     constructor() {
+        this.camera = new Camera();
+        this.scene = new LoadingScene();
 
-        g3.loadResources().then(() => {
+        this.initPlayer();
 
-            this._players = [
-                new Player(true)
-            ];
+        g3.loadResources()
+            .then(() => {
+                game.scene = new GameScene();
+                this.showDebug();
+            });
+    }
 
-            // @ts-ignore
-            this.scene = new WelcomeScene();
-
-            this.showDebug();
-        });
+    setCamera(newCamera: Camera) {
+        this.camera = newCamera;
+        g3.t3camera = newCamera.camera;
     }
 
     controller() {
@@ -38,8 +45,10 @@ export default class Game {
             : null;
     }
 
-    camera() {
-        return this.scene.camera();
+    initPlayer() {
+        this._players = [
+            new Player(true)
+        ];
     }
 
     player() {

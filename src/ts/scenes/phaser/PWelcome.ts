@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-class PWelcomeScene extends Phaser.Scene {
+class PWelcome extends Phaser.Scene {
 
     private images_codes = {
         logo: 'logo'
@@ -71,4 +71,4 @@ function update() {
     }
 }
 
-export default PWelcomeScene;
+export default PWelcome;

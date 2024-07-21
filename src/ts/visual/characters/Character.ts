@@ -1,5 +1,5 @@
 import * as t3 from "three";
-import {g3, game} from "../InitGame.ts";
+import {g3, game} from "../../InitGame.ts";
 
 export default class Character {
 
@@ -16,8 +16,8 @@ export default class Character {
 
     constructor(mesh: t3.Mesh) {
 
-        this.maxSpeed *= 10;
-        this.maxAcceleration *= 10;
+        // this.maxSpeed *= 10;
+        // this.maxAcceleration *= 10;
 
         this.mesh = mesh;
 
@@ -33,21 +33,25 @@ export default class Character {
     moveForward() {
         this.accelerate();
         this.mesh.position.z -= this.speed;
+        this.mesh.rotation.y = g3.degToRad(180);
     }
 
     moveBack() {
         this.accelerate();
         this.mesh.position.z += this.speed;
+        this.mesh.rotation.y = g3.degToRad(0);
     }
 
     moveLeft() {
         this.accelerate();
         this.mesh.position.x -= this.speed;
+        this.mesh.rotation.y = g3.degToRad(270);
     }
 
     moveRight() {
         this.accelerate();
         this.mesh.position.x += this.speed;
+        this.mesh.rotation.y = g3.degToRad(90);
     }
 
     stopMoving() {

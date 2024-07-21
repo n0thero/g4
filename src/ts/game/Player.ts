@@ -1,10 +1,9 @@
 import * as t3 from 'three';
-import Character from "./Character.ts";
+import Character from "../visual/characters/Character.ts";
 import {g3} from "../InitGame.ts";
 
 export default class Player {
 
-    mesh: t3.Mesh;
     character: Character;
 
     constructor(is_default: boolean = false) {
@@ -12,13 +11,13 @@ export default class Player {
         if (is_default) {
         }
 
-        // @ts-ignore
-        this.mesh = g3.bot;
-        this.mesh.castShadow = true;
-        this.character = new Character(this.mesh);
+        let mesh = g3.getDefaultCube();
+        mesh.castShadow = true;
+
+        this.character = new Character(mesh);
     }
 
     spawn(scene: t3.Scene) {
-        scene.add(this.mesh);
+        scene.add(this.character.mesh);
     }
 }

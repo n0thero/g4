@@ -1,5 +1,5 @@
 import * as t3 from "three";
-import {g3, game} from "../InitGame.ts";
+import {g3, game} from "../../InitGame.ts";
 
 export default class Sky {
 
@@ -22,12 +22,13 @@ export default class Sky {
 
     updatePositionByCharacter() {
 
-        let player = game.player().mesh;
+        let player = game.player().character.mesh;
 
         if (!player) {
             return;
         }
 
         this.mesh.position.copy(player.position);
+        this.mesh.updateMatrixWorld();
     }
 }
