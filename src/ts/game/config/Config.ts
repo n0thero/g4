@@ -10,10 +10,6 @@ export default class Config {
         video__antialias_is_on: 'video__antialias_is_on'
     };
 
-    constructor() {
-        this.initDefault();
-    }
-
     private initDefault(): void {
 
         this.store[this.keys.video__antialias_is_on] = Boolean(this.get(
@@ -21,6 +17,12 @@ export default class Config {
             false));
 
 
+    }
+
+    //region Main
+
+    constructor() {
+        this.initDefault();
     }
 
     private triggerListeners<T>(key: string, value: T): void {
@@ -60,6 +62,10 @@ export default class Config {
         this.listeners[key].push(listener);
     }
 
+    //endregion
+
+    //region UI
+
     public renderSettings(): void {
         const keys = {
             video__antialias_is_on: this.keys.video__antialias_is_on
@@ -80,7 +86,10 @@ export default class Config {
         </div>
         `);
 
+        this.bindUIListeners();
+    }
 
+    private bindUIListeners(): void {
 
         document.getElementById('settings')!
             .addEventListener('change', event => {
@@ -95,4 +104,6 @@ export default class Config {
                 }
             });
     }
+
+    //endregion
 }
