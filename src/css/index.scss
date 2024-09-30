@@ -43,3 +43,19 @@ body {
   filter: grayscale(1);
   opacity: 0.6 !important;
 }
+
+#settings {
+  position: fixed;
+  top: 85px;
+  right: 5px;
+  background: rgba(50, 50, 50, .5);
+  color: white;
+  padding: 5px;
+  font-family: 'Cousine', monospace;
+  font-size: 12px;
+}
+
+#settings label,
+#settings input {
+  cursor: pointer;
+}

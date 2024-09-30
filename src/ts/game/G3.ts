@@ -4,13 +4,13 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 // @ts-ignore
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
 import {FBXLoader} from "three/addons";
-import {game} from "../InitGame.ts";
+import {config, game} from "../InitGame.ts";
 import Camera from "../game/cameras/Camera.ts";
 import StatsT3 from "stats.js";
 
 export default class G3 {
 
-    renderer: t3.WebGLRenderer;
+    renderer!: t3.WebGLRenderer;
 
     t3camera: t3.PerspectiveCamera | null = null;
     camera: Camera | null = null;
@@ -34,13 +34,7 @@ export default class G3 {
 
     constructor() {
 
-        // Init renderer
-        this.renderer = new t3.WebGLRenderer({antialias: true});
-        this.renderer.shadowMap.enabled = true;
-        this.renderer.shadowMap.type = t3.PCFSoftShadowMap;
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.renderer.setPixelRatio(window.devicePixelRatio);
-        document.getElementById('app')!.appendChild(this.renderer.domElement);
+        this.initRenderer();
 
         // Init loaders
         this.textureLoader = new t3.TextureLoader();
@@ -53,7 +47,47 @@ export default class G3 {
         // Init stats
         this.stats = new StatsT3();
         this.stats.dom.id = 'stats-t3';
+
         document.body.appendChild(this.stats.dom);
+    }
+
+    private initRenderer(): void {
+
+        const app_block: HTMLElement = document.getElementById('app')!;
+
+        const is_old_renderer_exists = typeof this.renderer !== 'undefined';
+
+        let renderer_old, scene_old, camera_old, parent_block;
+
+        if (is_old_renderer_exists) {
+
+            renderer_old = this.renderer;
+            scene_old = this.scene;
+            camera_old = this.t3camera;
+            parent_block = this.renderer.domElement;
+
+            renderer_old.dispose();
+            parent_block.parentElement!.removeChild(parent_block);
+        }
+
+        this.renderer = new t3.WebGLRenderer({
+            antialias: config.get<boolean>(
+                config.keys.video__antialias_is_on, false)
+        });
+
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = t3.PCFSoftShadowMap;
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
+
+        app_block.appendChild(this.renderer.domElement);
+
+        if (is_old_renderer_exists &&
+            scene_old &&
+            camera_old) {
+
+            this.renderer.render(scene_old, camera_old)
+        }
     }
 
     animate = () => {
@@ -120,7 +154,9 @@ export default class G3 {
                 this.bot = bot;
 
                 resolve(1);
-            }, undefined, (error: any) => { reject(error); })
+            }, undefined, (error: any) => {
+                reject(error);
+            })
         });
     }
 
@@ -176,5 +212,9 @@ export default class G3 {
 
     degToRad(degrees: number): number {
         return t3.MathUtils.degToRad(degrees);
+    }
+
+    public applyAntialiasValue(): void {
+        this.initRenderer();
     }
 }

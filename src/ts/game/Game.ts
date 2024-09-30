@@ -1,4 +1,4 @@
-import {g3, game, gp} from "./../InitGame.ts";
+import {g3, game, gp, config} from "./../InitGame.ts";
 
 import Player from "./Player.ts";
 import GameScene from "../scenes/GameScene.ts";
@@ -7,6 +7,7 @@ import LoadingScene from "../scenes/LoadingScene.ts";
 import CharacterController from "../input/controllers/CharacterController.ts";
 import {AScene} from "../scenes/AScene.ts";
 import Camera from "./cameras/Camera.ts";
+import Config from "./config/Config";
 
 export default class Game {
 
@@ -26,6 +27,9 @@ export default class Game {
             .then(() => {
                 game.scene = new GameScene();
                 this.showDebug();
+                config.renderSettings();
+
+                this.bindToConfig();
             });
     }
 
@@ -106,5 +110,11 @@ export default class Game {
             scene.updateDebugText(text);
 
         }, 100);
+    }
+
+    private bindToConfig() {
+        config.onChange<boolean>(
+            config.keys.video__antialias_is_on,
+            () => g3.applyAntialiasValue());
     }
 }
